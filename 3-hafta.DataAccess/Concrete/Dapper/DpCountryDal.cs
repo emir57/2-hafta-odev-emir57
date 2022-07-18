@@ -1,4 +1,5 @@
-﻿using _3_hafta.DataAccess.Concrete.Contexts;
+﻿using _3_hafta.DataAccess.Abstract;
+using _3_hafta.DataAccess.Concrete.Contexts;
 using _3_hafta.Entity.Concrete;
 using Core.DataAccess;
 using Dapper;
@@ -6,7 +7,7 @@ using WriteParameter;
 
 namespace _3_hafta.DataAccess.Concrete.Dapper
 {
-    public class DpCountryDal : IEntityRepository<Country>
+    public class DpCountryDal : IEntityRepository<Country>, ICountryDal
     {
         private readonly string _table = "Country";
         private readonly string _schema = "dbo";

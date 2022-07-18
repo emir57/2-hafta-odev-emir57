@@ -1,4 +1,5 @@
-﻿using _3_hafta.DataAccess.Concrete.Contexts;
+﻿using _3_hafta.DataAccess.Abstract;
+using _3_hafta.DataAccess.Concrete.Contexts;
 using _3_hafta.Entity.Concrete;
 using Core.DataAccess;
 using Dapper;
@@ -6,7 +7,7 @@ using WriteParameter;
 
 namespace _3_hafta.DataAccess.Concrete.Dapper
 {
-    public class DpDepartmentDal : IEntityRepository<Department>
+    public class DpDepartmentDal : IEntityRepository<Department>, IDepartmentDal
     {
         private readonly string _table = "Department";
         private readonly string _schema = "dbo";

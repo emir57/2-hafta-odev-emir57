@@ -1,4 +1,5 @@
 using _3_hafta.Business.DepedencyResolvers.Autofac;
+using _3_hafta.DataAccess.Concrete.Contexts;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<DpPatikaDbContext>();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(builder =>
     {

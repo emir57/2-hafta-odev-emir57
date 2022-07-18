@@ -34,7 +34,7 @@ namespace WriteParameter
         {
             checkTable();
             checkSchema();
-            return String.Format($"insert into {_schema}.{_tableName} {insertIntoWriteParameters()}").Replace("ı", "i");
+            return String.Format($"INSERT INTO {_schema}.{_tableName} {insertIntoWriteParameters()}").Replace("ı", "i");
         }
 
         public virtual string GenerateUpdateQuery()
@@ -166,31 +166,31 @@ namespace WriteParameter
             var properties = _properties.Count == 0 ? typeof(TEntity).GetProperties().ToList() : _properties;
             string idPropertyName = getIdColumn();
 
-            string updateQuery = String.Join(",", properties.Select(p => p.Name == idPropertyName ? "" : $"{p.Name.ToLower()}=@{p.Name}"));
+            string updateQuery = String.Join(",", properties.Select(p => p.Name == idPropertyName ? "" : $"{p.Name}=@{p.Name}"));
 
             updateQuery = updateQuery.StartsWith(",") ? updateQuery.Substring(1) : updateQuery;
-            updateQuery += String.Concat(" ", $"where {idPropertyName.ToLower()}=@{idPropertyName}");
+            updateQuery += String.Concat(" ", $"WHERE {idPropertyName}=@{idPropertyName}");
             return $"set {updateQuery}";
         }
         protected virtual string insertIntoWriteParameters()
         {
             string columns = getParametersWithoutId();
             string valueColumns = getParametersWithoutId("@");
-            return $"({columns}) values ({valueColumns})";
+            return $"({columns}) VALUES ({valueColumns})";
         }
 
         protected virtual string getParametersWithoutId(string? previousName = "")
         {
             var properties = _properties.Count == 0 ? typeof(TEntity).GetProperties().ToList() : _properties;
             string idPropertyName = getIdColumn();
-            string parameters = String.Join(",", properties.Select(p => p.Name == idPropertyName ? "" : $"{previousName}{p.Name.ToLower()}"));
+            string parameters = String.Join(",", properties.Select(p => p.Name == idPropertyName ? "" : $"{previousName}{p.Name}"));
             parameters = parameters.StartsWith(",") ? parameters.Substring(1) : parameters;
             return parameters;
         }
         protected virtual string getParametersWithId(string? previousName = "")
         {
             var properties = _properties.Count == 0 ? typeof(TEntity).GetProperties().ToList() : _properties;
-            string parameters = String.Join(",", properties.Select(p => $"{previousName}{p.Name.ToLower()}"));
+            string parameters = String.Join(",", properties.Select(p => $"{previousName}{p.Name}"));
             parameters = parameters.StartsWith(",") ? parameters.Substring(1) : parameters;
             return parameters;
         }
