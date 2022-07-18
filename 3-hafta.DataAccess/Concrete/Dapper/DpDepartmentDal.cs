@@ -6,13 +6,13 @@ using WriteParameter;
 
 namespace _3_hafta.DataAccess.Concrete.Dapper
 {
-    public class DbDepartmentDal : IEntityRepository<Department>
+    public class DpDepartmentDal : IEntityRepository<Department>
     {
         private readonly string _table = "Department";
         private readonly string _schema = "dbo";
         private readonly DpPatikaDbContext _context;
 
-        public DbDepartmentDal(DpPatikaDbContext context)
+        public DpDepartmentDal(DpPatikaDbContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateInsertQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -38,8 +38,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateInsertQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -56,8 +56,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateDeleteQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -72,8 +72,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateDeleteQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -90,8 +90,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string query = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateGetAllQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -106,8 +106,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string query = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateGetAllQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -121,8 +121,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateUpdateQuery();
                 if (con.State != System.Data.ConnectionState.Open)
@@ -137,8 +137,8 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             using (var con = _context.CreateConnection())
             {
                 string command = new QueryGenerate<Department>()
-                    .SelectSchema("dbo")
-                    .SelectTable("Department")
+                    .SelectSchema(_schema)
+                    .SelectTable(_table)
                     .SelectIdColumn(x => x.DepartmentId)
                     .GenerateUpdateQuery();
                 if (con.State != System.Data.ConnectionState.Open)
