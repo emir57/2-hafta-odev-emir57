@@ -6,24 +6,25 @@ using WriteParameter;
 
 namespace _3_hafta.DataAccess.Concrete.Dapper
 {
-    public class DpCountryDal : IEntityRepository<Country>
+    public class DbDepartmentDal : IEntityRepository<Department>
     {
-        private readonly string _table = "Country";
+        private readonly string _table = "Department";
         private readonly string _schema = "dbo";
         private readonly DpPatikaDbContext _context;
-        public DpCountryDal(DpPatikaDbContext context)
+
+        public DbDepartmentDal(DpPatikaDbContext context)
         {
             _context = context;
         }
 
-        public async Task<bool> AddAsync(Country entity)
+        public async Task<bool> AddAsync(Department entity)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateInsertQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -32,14 +33,14 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             }
         }
 
-        public async Task AddRangeAsync(IEnumerable<Country> entities)
+        public async Task AddRangeAsync(IEnumerable<Department> entities)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateInsertQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -50,14 +51,14 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             }
         }
 
-        public async Task<bool> DeleteAsync(Country entity)
+        public async Task<bool> DeleteAsync(Department entity)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateDeleteQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -66,14 +67,14 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             }
         }
 
-        public async Task DeleteRangeAsync(IEnumerable<Country> entities)
+        public async Task DeleteRangeAsync(IEnumerable<Department> entities)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateDeleteQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -84,45 +85,45 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             }
         }
 
-        public async Task<List<Country>> GetAllAsync()
+        public async Task<List<Department>> GetAllAsync()
         {
             using (var con = _context.CreateConnection())
             {
-                string query = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string query = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateGetAllQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
-                var result = await con.QueryAsync<Country>(query);
+                var result = await con.QueryAsync<Department>(query);
                 return result.ToList();
             }
         }
 
-        public async Task<Country> GetByIdAsync(int id)
+        public async Task<Department> GetByIdAsync(int id)
         {
             using (var con = _context.CreateConnection())
             {
-                string query = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string query = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateGetAllQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
-                return await con.QuerySingleOrDefaultAsync<Country>(query);
+                return await con.QuerySingleOrDefaultAsync<Department>(query);
             }
         }
 
-        public async Task<bool> UpdateAsync(Country entity)
+        public async Task<bool> UpdateAsync(Department entity)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateUpdateQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -131,14 +132,14 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
             }
         }
 
-        public async Task UpdateRangeAsync(IEnumerable<Country> entities)
+        public async Task UpdateRangeAsync(IEnumerable<Department> entities)
         {
             using (var con = _context.CreateConnection())
             {
-                string command = new QueryGenerate<Country>()
-                    .SelectSchema(_schema)
-                    .SelectTable(_table)
-                    .SelectIdColumn(x => x.CountryId)
+                string command = new QueryGenerate<Department>()
+                    .SelectSchema("dbo")
+                    .SelectTable("Department")
+                    .SelectIdColumn(x => x.DepartmentId)
                     .GenerateUpdateQuery();
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
