@@ -10,5 +10,7 @@ namespace _3_hafta.Entity.Concrete
         public string CountryName { get; set; }
         public string Continent { get; set; }
         public string Currency { get; set; }
+
+        public ICollection<Department> Departments { get; set; }
     }
 }

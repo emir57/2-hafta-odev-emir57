@@ -9,5 +9,6 @@ namespace _3_hafta.Entity.Concrete
         public int EmpID { get; set; }
         public string EmpName { get; set; }
         public int DeptId { get; set; }
+        public Folder Folder { get; set; }
     }
 }
