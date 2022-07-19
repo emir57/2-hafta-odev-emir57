@@ -1,21 +1,17 @@
-﻿using Core.Utilities.Result;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Entity;
+using Core.Utilities.Result;
 
 namespace _3_hafta.Business.Abstract
 {
     public interface IBaseService<TEntity, TDto>
+        where TEntity : class, IEntity, new()
+        where TDto : class, IEntity, new()
     {
-        Task<IResult> AddAsync(TEntity entity);
-        Task<IResult> UpdateAsync(TEntity entity);
-        Task<IResult> DeleteAsync(TEntity entity);
+        Task<IResult> AddAsync(TDto entity);
+        Task<IResult> UpdateAsync(int id, TDto entity);
+        Task<IResult> DeleteAsync(int id);
 
-        Task AddRangeAsync(IEnumerable<TEntity> entities);
-        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
-        Task DeleteRangeAsync(IEnumerable<TEntity> entities);
+        Task AddRangeAsync(IEnumerable<TDto> entities);
 
         Task<IDataResult<List<TDto>>> GetListAsync();
         Task<IDataResult<TDto>> GetByIdAsync(int id);
