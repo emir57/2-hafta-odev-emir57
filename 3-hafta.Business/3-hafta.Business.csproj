@@ -15,4 +15,8 @@
     <ProjectReference Include="..\3-hafta.DataAccess\3-hafta.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Concrete\" />
+  </ItemGroup>
+
 </Project>
