@@ -9,7 +9,7 @@ namespace _3_hafta.DataAccess.Concrete.Dapper
 {
     public class DpCountryDal : IEntityRepository<Country>, ICountryDal
     {
-        private readonly string _table = "Country";
+        private readonly string _table = "country";
         private readonly string _schema = "dbo";
         private readonly DpPatikaDbContext _context;
         public DpCountryDal(DpPatikaDbContext context)
