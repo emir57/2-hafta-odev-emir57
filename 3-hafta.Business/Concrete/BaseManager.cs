@@ -4,21 +4,16 @@ using AutoMapper;
 using Core.DataAccess;
 using Core.Entity;
 using Core.Utilities.Result;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3_hafta.Business.Concrete
 {
-    public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
+    public class BaseManager<TEntity, TDto> : IBaseService<TEntity, TDto>
         where TEntity : class, IEntity, new()
-        where TDto : class, IEntity, new()
+        where TDto : class, IDto, new()
     {
         private readonly IEntityRepository<TEntity> _entityRepository;
         protected readonly IMapper Mapper;
-        public BaseService(IEntityRepository<TEntity> entityRepository, IMapper mapper)
+        public BaseManager(IEntityRepository<TEntity> entityRepository, IMapper mapper)
         {
             _entityRepository = entityRepository;
             Mapper = mapper;
