@@ -14,13 +14,16 @@ namespace _3_hafta.Test.Business
     public class EmployeeTests
     {
         Mock<IEmployeeService> _mockEmployeeService;
-        List<EmployeeDto> _dbEmployee;
+        List<EmployeeDto> _dbEmployeeDto;
+        List<Employee> _dbEmployee;
         public EmployeeTests()
         {
             _mockEmployeeService = new Mock<IEmployeeService>();
+            _dbEmployeeDto = getEmployeeDtoList();
             _dbEmployee = getEmployeeList();
 
-            _mockEmployeeService.Setup(m => m.GetListAsync()).ReturnsAsync(new SuccessDataResult<List<EmployeeDto>>(_dbEmployee));
+            _mockEmployeeService.Setup(m => m.GetListAsync()).ReturnsAsync(new SuccessDataResult<List<EmployeeDto>>(_dbEmployeeDto));
+            _mockEmployeeService.Setup(m => m.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((int x) => new SuccessDataResult<EmployeeDto>(getById(x)));
         }
         [Fact]
         public async void Get_all_employees()
@@ -28,8 +31,15 @@ namespace _3_hafta.Test.Business
             var result = await _mockEmployeeService.Object.GetListAsync();
             Assert.Equal(4, result.Data.Count);
         }
+        [Theory]
+        [InlineData(1)]
+        public async void Get_by_id_employee(int id)
+        {
+            var result = await _mockEmployeeService.Object.GetByIdAsync(id);
+            Assert.NotEqual(null, result);
+        }
 
-        private List<EmployeeDto> getEmployeeList()
+        private List<EmployeeDto> getEmployeeDtoList()
         {
             return new List<EmployeeDto>
             {
@@ -37,6 +47,26 @@ namespace _3_hafta.Test.Business
                 new EmployeeDto{EmpName="Yasin",DeptId=5},
                 new EmployeeDto{EmpName="Enes",DeptId=4},
                 new EmployeeDto{EmpName="Oğuzhan",DeptId=3},
+            };
+        }
+        private List<Employee> getEmployeeList()
+        {
+            return new List<Employee>
+            {
+                new Employee{EmpID=1,EmpName="Emir",DeptId=1},
+                new Employee{EmpID=2,EmpName="Yasin",DeptId=5},
+                new Employee{EmpID=3,EmpName="Enes",DeptId=4},
+                new Employee{EmpID=4,EmpName="Oğuzhan",DeptId=3},
+            };
+        }
+
+        private EmployeeDto getById(int id)
+        {
+            var employee = getEmployeeList().SingleOrDefault(x => x.EmpID == id);
+            return new EmployeeDto
+            {
+                EmpName = employee.EmpName,
+                DeptId = employee.DeptId
             };
         }
     }
