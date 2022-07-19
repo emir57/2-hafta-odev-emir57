@@ -1,4 +1,5 @@
 using _3_hafta.Business.DependencyResolvers.Autofac;
+using _3_hafta.Business.Mapper;
 using _3_hafta.DataAccess.Concrete.Contexts;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(typeof(BusinessMapper));
 
 builder.Services.AddScoped<DpPatikaDbContext>();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
