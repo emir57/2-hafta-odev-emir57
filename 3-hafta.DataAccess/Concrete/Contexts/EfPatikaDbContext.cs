@@ -15,6 +15,12 @@ namespace _3_hafta.DataAccess.Concrete.Contexts
             optionsBuilder.UseNpgsql(getConnectionString("PostgreSqlConnection"));
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Folder>()
+                .ToTable("folder", "dbo");
+        }
+
         private string getConnectionString(string conString)
         {
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
