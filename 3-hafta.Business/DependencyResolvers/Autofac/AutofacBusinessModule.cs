@@ -3,7 +3,7 @@ using _3_hafta.DataAccess.Concrete.Dapper;
 using _3_hafta.DataAccess.Concrete.EntityFramework;
 using Autofac;
 
-namespace _3_hafta.Business.DepedencyResolvers.Autofac
+namespace _3_hafta.Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {

@@ -1,4 +1,4 @@
-using _3_hafta.Business.DepedencyResolvers.Autofac;
+using _3_hafta.Business.DependencyResolvers.Autofac;
 using _3_hafta.DataAccess.Concrete.Contexts;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
