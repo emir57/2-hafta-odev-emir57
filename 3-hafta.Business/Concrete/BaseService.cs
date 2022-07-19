@@ -1,4 +1,5 @@
 ﻿using _3_hafta.Business.Abstract;
+using _3_hafta.Business.Constants;
 using AutoMapper;
 using Core.DataAccess;
 using Core.Entity;
@@ -28,20 +29,20 @@ namespace _3_hafta.Business.Concrete
             TEntity addedEntity = Mapper.Map<TEntity>(entity);
             bool result = await _entityRepository.AddAsync(addedEntity);
             if (result)
-                return new SuccessResult();
-            return new ErrorResult();
+                return new SuccessResult(BusinessMessages.SuccessAdd);
+            return new ErrorResult(BusinessMessages.UnSuccessAdd);
         }
 
         public async Task<IResult> UpdateAsync(int id, TDto entity)
         {
             TEntity updatedEntity = await _entityRepository.GetByIdAsync(id);
             if (updatedEntity is null)
-                return new ErrorResult();
+                return new ErrorResult(BusinessMessages.NotFoundEntity);
             Mapper.Map(entity, updatedEntity);
             bool result = await _entityRepository.UpdateAsync(updatedEntity);
             if (result)
-                return new SuccessResult();
-            return new ErrorResult();
+                return new SuccessResult(BusinessMessages.SuccessUpdate);
+            return new ErrorResult(BusinessMessages.UnSuccessUpdate);
 
         }
 
@@ -49,11 +50,11 @@ namespace _3_hafta.Business.Concrete
         {
             TEntity deletedEntity = await _entityRepository.GetByIdAsync(id);
             if (deletedEntity is null)
-                return new ErrorResult();
+                return new ErrorResult(BusinessMessages.NotFoundEntity);
             bool result = await _entityRepository.DeleteAsync(deletedEntity);
             if (result)
-                return new SuccessResult();
-            return new ErrorResult();
+                return new SuccessResult(BusinessMessages.SuccessDelete);
+            return new ErrorResult(BusinessMessages.UnSuccessDelete);
         }
 
         public async Task AddRangeAsync(IEnumerable<TDto> entities)
@@ -66,16 +67,16 @@ namespace _3_hafta.Business.Concrete
         {
             var result = await _entityRepository.GetAllAsync();
             var resultDtos = Mapper.Map<List<TDto>>(result);
-            return new SuccessDataResult<List<TDto>>(resultDtos);
+            return new SuccessDataResult<List<TDto>>(resultDtos, BusinessMessages.SuccessList);
         }
 
         public async Task<IDataResult<TDto>> GetByIdAsync(int id)
         {
             var result = await _entityRepository.GetByIdAsync(id);
             if (result is null)
-                return new ErrorDataResult<TDto>();
+                return new ErrorDataResult<TDto>(BusinessMessages.NotFoundEntity);
             var resultDto = Mapper.Map<TDto>(result);
-            return new SuccessDataResult<TDto>(resultDto);
+            return new SuccessDataResult<TDto>(resultDto, BusinessMessages.SuccessGet);
         }
     }
 }

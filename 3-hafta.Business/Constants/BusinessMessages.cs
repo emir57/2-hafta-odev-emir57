@@ -8,7 +8,7 @@
 
         public static readonly string UnSuccessAdd = "Ekleme Başarısız";
         public static readonly string UnSuccessUpdate = "Güncelleme Başarısız";
-        public static readonly string UnSuccessDeleted = "Silme Başarısız";
+        public static readonly string UnSuccessDelete = "Silme Başarısız";
 
         public static readonly string NotFoundEntity = "Bulunamadı";
         public static readonly string SuccessGet = "Getirme Başarılı";
