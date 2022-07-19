@@ -1,5 +1,6 @@
 ﻿using _3_hafta.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace _3_hafta.DataAccess.Concrete.Contexts
 {
@@ -11,7 +12,13 @@ namespace _3_hafta.DataAccess.Concrete.Contexts
         public DbSet<Country> Country { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=PATIKA;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;");
+            optionsBuilder.UseNpgsql(getConnectionString("PostgreSqlConnection"));
+        }
+
+        private string getConnectionString(string conString)
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            return config.GetConnectionString(conString);
         }
     }
 }
