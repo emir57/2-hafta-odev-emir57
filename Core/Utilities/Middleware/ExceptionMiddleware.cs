@@ -1,5 +1,7 @@
-﻿using FluentValidation;
+﻿using Core.Utilities.Result;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace Core.Utilities.Middleware
@@ -33,11 +35,16 @@ namespace Core.Utilities.Middleware
 
             if (e.GetType() == typeof(ValidationException))
             {
-                var errors = ((ValidationException)e).Errors;
-                message = string.Join("\n", errors.Select(x => x.ErrorMessage));
+                getErrorMessages(e, out message);
             }
+            var json = JsonConvert.SerializeObject(new ErrorResult(message), Formatting.Indented);
+            await context.Response.WriteAsync(json);
+        }
 
-            await context.Response.WriteAsync(message);
+        private void getErrorMessages(Exception e, out string message)
+        {
+            var errors = ((ValidationException)e).Errors;
+            message = string.Join("\n", errors.Select(x => x.ErrorMessage));
         }
     }
 }
