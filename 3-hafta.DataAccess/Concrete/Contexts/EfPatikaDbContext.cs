@@ -19,6 +19,8 @@ namespace _3_hafta.DataAccess.Concrete.Contexts
         {
             modelBuilder.Entity<Folder>()
                 .ToTable("folder", "dbo");
+            modelBuilder.Entity<Employee>()
+                .ToTable("employee", "dbo");
         }
 
         private string getConnectionString(string conString)
