@@ -1,10 +1,5 @@
 ﻿using _3_hafta.Dto.Concrete;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3_hafta.Business.Validation.FluentValidation
 {
