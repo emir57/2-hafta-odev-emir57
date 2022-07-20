@@ -1,5 +1,6 @@
 ﻿using Core.Entity;
 using Core.Utilities.Result;
+using FluentValidation;
 
 namespace _3_hafta.Business.Abstract
 {

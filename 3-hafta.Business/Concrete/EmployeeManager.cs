@@ -5,6 +5,7 @@ using _3_hafta.Dto.Concrete;
 using _3_hafta.Entity.Concrete;
 using AutoMapper;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Result;
 
 namespace _3_hafta.Business.Concrete
@@ -14,7 +15,6 @@ namespace _3_hafta.Business.Concrete
         public EmployeeManager(IEmployeeDal entityRepository, IMapper mapper) : base(entityRepository, mapper)
         {
         }
-
         [ValidationAspect(typeof(EmployeeValidator))]
         public override Task<IResult> AddAsync(EmployeeDto entity)
         {

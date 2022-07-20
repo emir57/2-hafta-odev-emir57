@@ -1,10 +1,12 @@
 ﻿using _3_hafta.Business.Abstract;
 using _3_hafta.Business.Constants;
+using _3_hafta.Business.Validation.FluentValidation;
 using AutoMapper;
 using Core.Aspects.Autofac.Validation;
 using Core.DataAccess;
 using Core.Entity;
 using Core.Utilities.Result;
+using FluentValidation;
 
 namespace _3_hafta.Business.Concrete
 {
@@ -19,6 +21,7 @@ namespace _3_hafta.Business.Concrete
             _entityRepository = entityRepository;
             Mapper = mapper;
         }
+        [ValidationAspect(typeof(EmployeeValidator))]
         public virtual async Task<IResult> AddAsync(TDto entity)
         {
             TEntity addedEntity = Mapper.Map<TEntity>(entity);

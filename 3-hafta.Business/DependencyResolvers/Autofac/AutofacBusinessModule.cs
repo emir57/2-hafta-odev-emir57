@@ -13,12 +13,7 @@ namespace _3_hafta.Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions
-                {
-                    Selector = new MethodInterceptorSelector()
-                });
+            
 
             #region DataAccess
             builder.RegisterType<EfEmployeeDal>().As<IEmployeeDal>();
@@ -33,6 +28,13 @@ namespace _3_hafta.Business.DependencyResolvers.Autofac
             builder.RegisterType<EmployeeManager>().As<IEmployeeService>();
             builder.RegisterType<FolderManager>().As<IFolderService>();
             #endregion
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions
+                {
+                    Selector = new AspectInterceptorSelector()
+                });
         }
     }
 }
