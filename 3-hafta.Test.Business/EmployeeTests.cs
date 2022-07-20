@@ -24,6 +24,11 @@ namespace _3_hafta.Test.Business
 
             _mockEmployeeService.Setup(m => m.GetListAsync()).ReturnsAsync(new SuccessDataResult<List<EmployeeDto>>(_dbEmployeeDto));
             _mockEmployeeService.Setup(m => m.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((int x) => new SuccessDataResult<EmployeeDto>(getById(x)));
+
+            _mockEmployeeService.Setup(m => m.AddAsync(new EmployeeDto())).ReturnsAsync(new SuccessResult());
+            _mockEmployeeService.Setup(m => m.UpdateAsync(1, new EmployeeDto())).ReturnsAsync(new SuccessResult());
+            _mockEmployeeService.Setup(m => m.DeleteAsync(1)).ReturnsAsync(new SuccessResult());
+
         }
         [Fact]
         public async void Get_all_employees()
@@ -36,7 +41,20 @@ namespace _3_hafta.Test.Business
         public async void Get_by_id_employee(int id)
         {
             var result = await _mockEmployeeService.Object.GetByIdAsync(id);
-            Assert.NotEqual(null, result);
+            Assert.NotEqual(null, result.Data);
+        }
+
+        [Fact]
+        public async void Add_employee()
+        {
+            var result = await _mockEmployeeService.Object.AddAsync(new EmployeeDto());
+            Assert.Equal(result.Success, true);
+        }
+        [Fact]
+        public async void Update_employee()
+        {
+            var result = await _mockEmployeeService.Object.UpdateAsync(1, new EmployeeDto());
+            Assert.Equal(result.Success, true);
         }
 
         private List<EmployeeDto> getEmployeeDtoList()
