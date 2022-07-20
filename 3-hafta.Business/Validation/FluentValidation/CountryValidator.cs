@@ -33,7 +33,7 @@ namespace _3_hafta.Business.Validation.FluentValidation
                 .Empty()
                 .WithMessage("Para birimi boş olamaz");
             RuleFor(c => c.Currency)
-                .MaximumLength(50)
+                .MaximumLength(3)
                 .WithMessage("Para birimi maksimum 3 karakter olabilir");
 
         }
