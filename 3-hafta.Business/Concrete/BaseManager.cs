@@ -1,6 +1,7 @@
 ﻿using _3_hafta.Business.Abstract;
 using _3_hafta.Business.Constants;
 using AutoMapper;
+using Core.Aspects.Autofac.Validation;
 using Core.DataAccess;
 using Core.Entity;
 using Core.Utilities.Result;
@@ -18,8 +19,7 @@ namespace _3_hafta.Business.Concrete
             _entityRepository = entityRepository;
             Mapper = mapper;
         }
-
-        public async Task<IResult> AddAsync(TDto entity)
+        public virtual async Task<IResult> AddAsync(TDto entity)
         {
             TEntity addedEntity = Mapper.Map<TEntity>(entity);
             bool result = await _entityRepository.AddAsync(addedEntity);
@@ -28,7 +28,7 @@ namespace _3_hafta.Business.Concrete
             return new ErrorResult(BusinessMessages.UnSuccessAdd);
         }
 
-        public async Task<IResult> UpdateAsync(int id, TDto entity)
+        public virtual async Task<IResult> UpdateAsync(int id, TDto entity)
         {
             TEntity updatedEntity = await _entityRepository.GetByIdAsync(id);
             if (updatedEntity is null)
