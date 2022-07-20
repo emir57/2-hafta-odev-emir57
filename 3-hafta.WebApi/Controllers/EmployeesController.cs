@@ -10,9 +10,11 @@ namespace _3_hafta.WebApi.Controllers
     public class EmployeesController : BaseController<Employee, EmployeeDto>
     {
         private readonly IDepartmentService _departmentService;
-        public EmployeesController(IEmployeeService service, IDepartmentService departmentService) : base(service)
+        private readonly IFolderService _folderService;
+        public EmployeesController(IEmployeeService service, IDepartmentService departmentService, IFolderService folderService) : base(service)
         {
             _departmentService = departmentService;
+            _folderService = folderService;
         }
 
         [HttpPost]
@@ -44,7 +46,15 @@ namespace _3_hafta.WebApi.Controllers
         [HttpGet("{employeeId}/departments")]
         public async Task<IActionResult> GetDepartmends([FromRoute] int employeeId)
         {
-            var result = await _departmentService.GetDepartmentsAsync(employeeId);
+            var result = await _departmentService.GetDepartmentsByEmployeeIdAsync(employeeId);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+        [HttpGet("{employeeId}/folders")]
+        public async Task<IActionResult> GetFolders([FromRoute] int employeeId)
+        {
+            var result = await _folderService.GetFoldersByEmployeeIdAsync(employeeId);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);

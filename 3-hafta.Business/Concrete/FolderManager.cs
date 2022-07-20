@@ -20,6 +20,14 @@ namespace _3_hafta.Business.Concrete
         {
             return base.AddAsync(entity);
         }
+
+        public async Task<IDataResult<List<FolderDto>>> GetFoldersByEmployeeIdAsync(int employeeId)
+        {
+            List<Folder> folders = await _entityRepository.GetAllAsync();
+            List<FolderDto> employeeFolders = Mapper.Map<List<FolderDto>>(folders.Where(f => f.EmpId == employeeId).ToList());
+            return new SuccessDataResult<List<FolderDto>>(employeeFolders);
+        }
+
         [ValidationAspect(typeof(FolderValidator))]
         public override Task<IResult> UpdateAsync(int id, FolderDto entity)
         {

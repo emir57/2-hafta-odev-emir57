@@ -13,8 +13,8 @@ namespace _3_hafta.Business.Validation.FluentValidation
                 .WithMessage("Erişim tipi boş olamaz");
 
             RuleFor(f => f.AccessType)
-                .MaximumLength(20)
-                .WithMessage("Erişim tipi maksimum 20 karakter olabilir");
+                .MaximumLength(5)
+                .WithMessage("Erişim tipi maksimum 5 karakter olabilir");
 
             RuleFor(f => f.EmpId)
                 .NotNull()

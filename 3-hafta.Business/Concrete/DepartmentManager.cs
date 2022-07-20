@@ -25,7 +25,7 @@ namespace _3_hafta.Business.Concrete
             return base.AddAsync(entity);
         }
 
-        public async Task<IDataResult<List<DepartmentCountryDto>>> GetDepartmentsAsync(int employeeId)
+        public async Task<IDataResult<List<DepartmentCountryDto>>> GetDepartmentsByEmployeeIdAsync(int employeeId)
         {
             var employee = await _employeeService.GetByIdAsync(employeeId);
             if (employee.Success == false)
