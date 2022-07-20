@@ -30,21 +30,27 @@ namespace _3_hafta.Business.Concrete
             var employee = await _employeeService.GetByIdAsync(employeeId);
             if (employee.Success == false)
                 return new ErrorDataResult<List<DepartmentCountryDto>>(BusinessMessages.NotFoundEntity);
+
             var departments = await _entityRepository.GetAllAsync();
             List<Department> employeeDepartments = departments.Where(x => x.DepartmentId == employee.Data?.DeptId)?.ToList();
-            List<DepartmentCountryDto> departmentsCountry = new List<DepartmentCountryDto>();
-            foreach (var department in employeeDepartments)
+            List<DepartmentCountryDto> departmentsCountry = getDepartmentsWithCountry(employeeDepartments).ToList();
+
+            return new SuccessDataResult<List<DepartmentCountryDto>>(departmentsCountry);
+        }
+
+        private IEnumerable<DepartmentCountryDto> getDepartmentsWithCountry(IEnumerable<Department> departments)
+        {
+            foreach (var department in departments)
             {
-                CountryDto country = (await _countryService.GetByIdAsync(department.CountryId)).Data;
-                departmentsCountry.Add(new DepartmentCountryDto
+                CountryDto country = _countryService.GetByIdAsync(department.CountryId).Result.Data;
+                yield return new DepartmentCountryDto
                 {
                     CountryName = country.CountryName,
                     Continent = country.Continent,
                     Currency = country.Currency,
                     DeptName = department.DeptName
-                });
+                };
             }
-            return new SuccessDataResult<List<DepartmentCountryDto>>(departmentsCountry);
         }
 
         [ValidationAspect(typeof(DepartmentValidator))]
