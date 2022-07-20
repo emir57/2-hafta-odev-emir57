@@ -4,6 +4,8 @@ using _3_hafta.DataAccess.Abstract;
 using _3_hafta.DataAccess.Concrete.Dapper;
 using _3_hafta.DataAccess.Concrete.EntityFramework;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Core.Utilities.Interceptors;
 
 namespace _3_hafta.Business.DependencyResolvers.Autofac
 {
@@ -11,6 +13,13 @@ namespace _3_hafta.Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions
+                {
+                    Selector = new MethodInterceptorSelector()
+                });
+
             #region DataAccess
             builder.RegisterType<EfEmployeeDal>().As<IEmployeeDal>();
             builder.RegisterType<EfFolderDal>().As<IFolderDal>();
