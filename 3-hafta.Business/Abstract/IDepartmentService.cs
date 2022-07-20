@@ -6,6 +6,6 @@ namespace _3_hafta.Business.Abstract
 {
     public interface IDepartmentService : IBaseService<Department, DepartmentDto>
     {
-        Task<IDataResult<List<DepartmentDto>>> GetDepartmentsAsync(int employeeId);
+        Task<IDataResult<List<DepartmentCountryDto>>> GetDepartmentsAsync(int employeeId);
     }
 }
