@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System.Net;
 
 namespace Core.Utilities.Middleware
@@ -29,6 +30,13 @@ namespace Core.Utilities.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             string message = "Internal server error";
+
+            if (e.GetType() == typeof(ValidationException))
+            {
+                var errors = ((ValidationException)e).Errors;
+                message = string.Join("\n", errors.Select(x => x.ErrorMessage));
+            }
+
             await context.Response.WriteAsync(message);
         }
     }
