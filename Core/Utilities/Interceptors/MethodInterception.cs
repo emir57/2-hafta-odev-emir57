@@ -18,10 +18,11 @@ namespace Core.Utilities.Interceptors
                 invocation.Proceed();
                 var task = invocation.ReturnValue as Task;
                 if (task != null)
-                {
-                    OnException(invocation, task.Exception);
-                    success = false;
-                }
+                    if (task.IsFaulted)
+                    {
+                        OnException(invocation, task.Exception);
+                        success = false;
+                    }
             }
             catch (System.Exception e)
             {

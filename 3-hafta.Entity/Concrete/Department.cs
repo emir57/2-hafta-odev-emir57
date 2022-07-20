@@ -10,6 +10,6 @@ namespace _3_hafta.Entity.Concrete
         public string DeptName { get; set; }
         public int CountryId { get; set; }
 
-        public Country Country { get; set; }
+        //public Country Country { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace _3_hafta.Business.Concrete
         where TEntity : class, IEntity, new()
         where TDto : class, IDto, new()
     {
-        private readonly IEntityRepository<TEntity> _entityRepository;
+        protected readonly IEntityRepository<TEntity> _entityRepository;
         protected readonly IMapper Mapper;
         public BaseManager(IEntityRepository<TEntity> entityRepository, IMapper mapper)
         {

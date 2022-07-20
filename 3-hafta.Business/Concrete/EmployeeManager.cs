@@ -20,6 +20,7 @@ namespace _3_hafta.Business.Concrete
         {
             return base.AddAsync(entity);
         }
+
         [ValidationAspect(typeof(EmployeeValidator))]
         public override Task<IResult> UpdateAsync(int id, EmployeeDto entity)
         {

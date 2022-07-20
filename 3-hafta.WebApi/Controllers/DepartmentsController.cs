@@ -7,21 +7,19 @@ namespace _3_hafta.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EmployeesController : BaseController<Employee, EmployeeDto>
+    public class DepartmentsController : BaseController<Department, DepartmentDto>
     {
-        private readonly IDepartmentService _departmentService;
-        public EmployeesController(IEmployeeService service, IDepartmentService departmentService) : base(service)
+        public DepartmentsController(IDepartmentService service) : base(service)
         {
-            _departmentService = departmentService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] EmployeeDto employeeDto)
+        public async Task<IActionResult> Post([FromBody] DepartmentDto employeeDto)
         {
             return await base.AddAsync(employeeDto);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] EmployeeDto employeeDto)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] DepartmentDto employeeDto)
         {
             return await base.UpdateAsync(id, employeeDto);
         }
@@ -39,15 +37,6 @@ namespace _3_hafta.WebApi.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             return await base.GetByIdAsync(id);
-        }
-
-        [HttpGet("{employeeId}/departments")]
-        public async Task<IActionResult> GetDepartmends([FromRoute] int employeeId)
-        {
-            var result = await _departmentService.GetDepartmentsAsync(employeeId);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
         }
     }
 }
