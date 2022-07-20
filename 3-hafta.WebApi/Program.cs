@@ -3,6 +3,7 @@ using _3_hafta.Business.Mapper;
 using _3_hafta.DataAccess.Concrete.Contexts;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
